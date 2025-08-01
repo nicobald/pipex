@@ -6,7 +6,7 @@
 /*   By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:09 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/01 16:43:18 by nbaldes          ###   ########.fr       */
+/*   Updated: 2025/08/01 17:19:41 by nbaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int parsing(int argc, char **argv)
 	//verifier qu on peut open le premier file
 	//??
 	int infile;
-	ssize_t 
 
 	if (argc != 5)
 		return (write(1, "Error\nWrong number of arguments\n", 33));
@@ -38,6 +37,7 @@ int parsing(int argc, char **argv)
 	if (!infile)
 		return (write(1, "Error\nSomething went wrong with the infile\n", 43));
 	
-	read(infile, );
+	dup2(infile, 0);
+	close(infile);
 	
 }
