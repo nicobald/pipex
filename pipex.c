@@ -6,7 +6,7 @@
 /*   By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:09 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/01 17:19:41 by nbaldes          ###   ########.fr       */
+/*   Updated: 2025/08/06 17:01:19 by nbaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int main (int argc, char **argv)
 	//executer ma premiere commande sur ce fichier
 	//stocker le resultat de la commande dans mon pipe
 	//retourner dans outfile
-	
 }
-// pid_t
 
 int parsing(int argc, char **argv)
 {
@@ -30,14 +28,27 @@ int parsing(int argc, char **argv)
 	//verifier qu on peut open le premier file
 	//??
 	int infile;
+	int index_arg;
+	int outfile;
 
+	index_arg = 3;
 	if (argc != 5)
 		return (write(1, "Error\nWrong number of arguments\n", 33));
+	if (!access(argv[1], R_OK))
+		return (write(1, "Error\nWrong access permission to infile\n", 40));
 	infile = open(argv[1], O_RDONLY);
 	if (!infile)
 		return (write(1, "Error\nSomething went wrong with the infile\n", 43));
-	
-	dup2(infile, 0);
+	outfile = open(argv[argc - 1], O_RDONLY);
+	if (!outfile)
+		return (write(1, "Error\nSomething went wrong with the outfile\n", 44));
+	if (!dup2(infile, 0));
+		return (write (1, "Error\nSomething went wrong with the duplicate", 45));
 	close(infile);
-	
-}
+	//pipe(); creation du pipe avant fork
+	while (index_arg > 2 && index_arg < argc - 1)
+	{
+		fork();
+		index_arg++;
+	}
+} 
