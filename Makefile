@@ -6,7 +6,7 @@
 #    By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 11:43:31 by nbaldes           #+#    #+#              #
-#    Updated: 2025/08/01 13:37:48 by nbaldes          ###   ########.fr        #
+#    Updated: 2025/08/07 13:10:57 by nbaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-SRC =
+SRC = pipex.c \
 
 
 OBJ = $(SRC:.c=.o)
