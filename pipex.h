@@ -6,7 +6,7 @@
 /*   By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 11:47:49 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/07 13:25:41 by nbaldes          ###   ########.fr       */
+/*   Updated: 2025/08/08 17:18:12 by nbaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@
 # include <sys/wait.h>
 # include <errno.h>
 
+int	check_arg(int argc);
 int main (int argc, char **argv);
-void parsing(int argc, char **argv);
+int parsing(int argc, char **argv);
+int	check_valid_infile(char **argv);
+int outfile(int argc, char **argv);
 
 #endif
