@@ -12,6 +12,7 @@
 
 #include "pipex.h"
 
+//test pour voir si je peux push????
 // parsing
 // rediriger la lecture de ficher vers mon premier arg(fichier)
 // creer fork?
