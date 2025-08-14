@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:09 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/12 18:22:48 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/14 15:33:16 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int outfile(int argc, char **argv)
 	}
 	return (0);
 }
+
 static void print_path(char **splited_path)
 {
 	int i;
@@ -88,7 +89,7 @@ static void print_splited_cmd(char ***splited_cmd)
 		j = 0;
 		while(splited_cmd[i][j])
 		{
-			printf("le tableau numero %i au mot numero %i stock %s\n", i, j, splited_cmd[i][j]);
+			printf("le tableau numero %i a la ligne %i stock %s\n", i, j, splited_cmd[i][j]);
 			j++;
 		}
 		i++;
@@ -96,9 +97,65 @@ static void print_splited_cmd(char ***splited_cmd)
 	return ;
 }
 
+static int count_tab(char ***tab)
+{
+	int i;
+
+	i = 0;
+	if (!tab)
+		return (0);
+	while (tab[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+static int count_line(char **line)
+{
+	int i;
+
+	i = 0;
+	if (!line)
+		return (0);
+	while (line[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+char ***join_path_cmd(char ***splited_cmd, char **splited_path)
+{
+	char ***path_cmd;
+	int i;
+	int j;
+
+	i = 0;
+	path_cmd = malloc(sizeof(char **) * (count_tab(splited_cmd) + 1));
+	if (!path_cmd)
+		return(NULL);
+	while (splited_cmd[i])
+	{
+		path_cmd[i] = malloc(sizeof(char *) * (count_line(splited_path) + 1));
+		if (!path_cmd)
+			return(NULL);
+		j = 0;
+		while (splited_path[j])
+		{
+			path_cmd[i][j] = ft_strjoin(splited_path[j], splited_cmd[i][0]);
+			j++;
+		}
+		i++;
+	}
+	path_cmd[i] = NULL;
+	return (path_cmd);
+}
+
 int	parsing(int argc, char **argv, char **envp)
 {
 	char ***splited_cmd;
+	char ***path_cmd;
 	char **splited_path;
 
 	if (check_arg(argc))
@@ -109,8 +166,11 @@ int	parsing(int argc, char **argv, char **envp)
 	print_splited_cmd(splited_cmd);
 	splited_path = find_path_split(envp);
 	print_path(splited_path);
+	path_cmd = join_path_cmd(splited_cmd, splited_path);
+	print_splited_cmd(path_cmd);
 	return (0);
 }
+
 char ***get_command(int argc, char **argv)
 {
 	int i;
@@ -129,7 +189,6 @@ char ***get_command(int argc, char **argv)
 	return(splited_cmd);
 }
 
-
 char **find_path_split(char **envp)
 {
 	char *full_path;
@@ -147,6 +206,7 @@ char **find_path_split(char **envp)
 	}
 	return (NULL);
 }
+
 int	main(int argc, char **argv, char **envp)
 {
 	if (parsing(argc, argv, envp))

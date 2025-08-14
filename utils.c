@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 18:01:21 by utilisateur       #+#    #+#             */
-/*   Updated: 2025/08/12 18:06:57 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/14 14:11:36 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void    ft_strjoin_copy(char *result, const char *s1, const char *s2)
                 result[i] = s1[i];
                 i++;
         }
+        result[i] = '/';
+        i++;
         while (s2[j])
         {
                 result[i + j] = s2[j];
