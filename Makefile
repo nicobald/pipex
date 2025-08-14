@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+         #
+#    By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 11:43:31 by nbaldes           #+#    #+#              #
-#    Updated: 2025/08/07 13:10:57 by nbaldes          ###   ########.fr        #
+#    Updated: 2025/08/12 18:06:20 by utilisateur      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRC = pipex.c \
+ft_split.c \
+utils.c \
 
 
 OBJ = $(SRC:.c=.o)

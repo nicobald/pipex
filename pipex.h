@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbaldes <nbaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 11:47:49 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/08 17:18:12 by nbaldes          ###   ########.fr       */
+/*   Updated: 2025/08/12 18:06:03 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@
 # include <errno.h>
 
 int	check_arg(int argc);
-int main (int argc, char **argv);
-int parsing(int argc, char **argv);
+int main (int argc, char **argv, char **envp);
+int parsing(int argc, char **argv, char **envp);
 int	check_valid_infile(char **argv);
 int outfile(int argc, char **argv);
+char	**ft_split(char const *s, char c);
+char ***get_command(int argc, char **argv);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
+char **find_path_split(char **envp);
+char    *ft_strjoin(const char *s1, const char *s2);
 
 #endif
