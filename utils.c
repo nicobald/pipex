@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 18:01:21 by utilisateur       #+#    #+#             */
-/*   Updated: 2025/08/14 14:11:36 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/16 12:02:34 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char    *ft_strjoin(const char *s1, const char *s2)
         if (!s2)
                 s2 = "";
         lentot = ft_strlen(s1) + ft_strlen(s2);
-        result = malloc(lentot + 1);
+        result = malloc(lentot + 2);
         if (!result)
                 return (NULL);
         ft_strjoin_copy(result, s1, s2);
@@ -77,4 +77,25 @@ int     ft_strncmp(const char *s1, const char *s2, size_t n)
                         return (s1[i] - s2[i]);
         }
         return (0);
+}
+
+
+char    *ft_strdup(char *str)
+{
+        int             i;
+        int             lenght;
+        char    *result;
+
+        lenght = ft_strlen(str);
+        result = malloc(lenght + 1);
+        if (!result)
+                return (NULL);
+        i = 0;
+        while (str[i])
+        {
+                result[i] = str[i];
+                i++;
+        }
+        result[i] = '\0';
+        return (result);
 }

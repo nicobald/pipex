@@ -6,7 +6,7 @@
 #    By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 11:43:31 by nbaldes           #+#    #+#              #
-#    Updated: 2025/08/12 18:06:20 by utilisateur      ###   ########.fr        #
+#    Updated: 2025/08/16 18:02:32 by utilisateur      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,25 +16,34 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRC = pipex.c \
+parsing.c \
+parsing_part_two.c \
 ft_split.c \
 utils.c \
 
-
 OBJ = $(SRC:.c=.o)
+
+PRINTF_DIR = printf
+PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
+$(PRINTF_LIB):
+	$(MAKE) -C $(PRINTF_DIR)
+
+$(NAME): $(OBJ) $(PRINTF_LIB)
+	$(CC) $(OBJ) $(PRINTF_LIB) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)
+	$(MAKE) -C $(PRINTF_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE) -C $(PRINTF_DIR) fclean
 
 re: fclean all
 
