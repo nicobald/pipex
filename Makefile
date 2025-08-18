@@ -6,7 +6,7 @@
 #    By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/08 11:43:31 by nbaldes           #+#    #+#              #
-#    Updated: 2025/08/16 18:02:32 by utilisateur      ###   ########.fr        #
+#    Updated: 2025/08/18 10:00:42 by utilisateur      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 SRC = pipex.c \
-parsing.c \
-parsing_part_two.c \
+parsing_file.c \
+parsing_cmd.c \
 ft_split.c \
 utils.c \
 

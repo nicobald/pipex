@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 11:47:49 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/16 17:40:29 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/18 14:47:11 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
 
 typedef struct s_path
 {
-        char **path_cmd;
         int i_path_cmd;
+        int fd_out;
+        int fd_in;
+        char **path_cmd;
 }                                       t_path;
 
 int	check_arg(int argc);

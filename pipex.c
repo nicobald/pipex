@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:09 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/16 18:18:49 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/18 14:52:20 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,18 @@
 // stocker le resultat de la commande dans mon pipe
 // retourner dans outfile
 
-static int init_path(t_path *path, int argc)
+static int init_struct(t_path *path, int argc)
 {
 	path->i_path_cmd = 0;
+	path->fd_out = 0;
+	path->fd_in = 0;
 	path->path_cmd = malloc(sizeof(char *) * (argc - 2));
 	if (!path->path_cmd)
 		return (1);
 	return (0);
 }
 
-int	parsing(int argc, char **argv, char **envp, t_path *path)
+int parsing(int argc, char **argv, char **envp, t_path *path)
 {
 	char ***splited_cmd;
 	char ***path_cmd;
@@ -68,30 +70,54 @@ int	parsing(int argc, char **argv, char **envp, t_path *path)
 // 	return ;
 // }
 
-int	main(int argc, char **argv, char **envp)
+int **fd_pipes(int argc, char **argv, t_path *path)
+{
+	int i;
+	int **pipes;
+
+	i = 0;
+	path->fd_in = open(argv[1], O_RDONLY); // O_TRUNC = vide le fichier, O_APPEND ecrit a la suite
+	if (!path->fd_out)
+		path->fd_out = open(argv[argc - 1], O_WRONLY);
+	pipes = malloc(sizeof(int *) * (argc - 4));
+	if (!pipes)
+		return (NULL);
+	while (i < (argc - 4))
+	{
+		pipes[i] = malloc(sizeof(int) * 2);
+		if (!pipes[i])
+			return (NULL);
+		pipe(pipes[i]);
+		i++;
+	}
+	return (pipes);
+}
+
+int executable(int argc, char **argv, t_path *path)
+{
+	fd_pipes(argc, argv, path);
+	return (0);
+}
+
+int main(int argc, char **argv, char **envp)
 {
 	t_path path;
 
-	init_path(&path, argc);
+	init_struct(&path, argc);
 	if (parsing(argc, argv, envp, &path))
 	{
 		free_multi_tab(NULL, path.path_cmd);
 		return (1);
 	}
 	// print_path(&path);
+	executable(argc, argv, &path);
 	return (0);
 }
-//open
-// pipe(); creation du pipe avant fork
-// pipe handling
-// int index_arg;
-// index_arg = 3;
-// if (!dup2(infile, 0));
-// 	return (write (1, "Error\nSomething went wrong with the duplicate",
-//));
-// close(infile);
-// while (index_arg > 2 && index_arg < argc - 1)
-// {
-	// 	fork();
-	// 	index_arg++;
-	// }
+
+// open
+//  pipe();
+//  pipe handling
+//  Fork processus enfant
+//  boucle exec commande
+//  fermeture des FD restant
+//  free/kill/exit restant

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 17:24:43 by utilisateur       #+#    #+#             */
-/*   Updated: 2025/08/16 18:16:30 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/18 10:04:25 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int outfile(int argc, char **argv, char **path_cmd, t_path *path)
 	if (access(argv[argc - 1], F_OK) == -1)
 	{
 		fd_outfile = open(argv[argc - 1], O_CREAT, 0644);
-        (void)fd_outfile;
+        path->fd_out = fd_outfile;
 		return (0);
 	}
 	if (access(argv[argc - 1], W_OK) == -1)
