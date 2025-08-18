@@ -6,7 +6,7 @@
 /*   By: utilisateur <utilisateur@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 13:38:09 by nbaldes           #+#    #+#             */
-/*   Updated: 2025/08/18 14:52:20 by utilisateur      ###   ########.fr       */
+/*   Updated: 2025/08/18 16:24:52 by utilisateur      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int **fd_pipes(int argc, char **argv, t_path *path)
 	int **pipes;
 
 	i = 0;
-	path->fd_in = open(argv[1], O_RDONLY); // O_TRUNC = vide le fichier, O_APPEND ecrit a la suite
+	path->fd_in = open(argv[1], O_RDONLY); 
 	if (!path->fd_out)
 		path->fd_out = open(argv[argc - 1], O_WRONLY);
 	pipes = malloc(sizeof(int *) * (argc - 4));
@@ -87,7 +87,12 @@ int **fd_pipes(int argc, char **argv, t_path *path)
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
 			return (NULL);
-		pipe(pipes[i]);
+		if (pipe(pipes[i]) == -1)
+		{
+			errno = EMFILE;
+			perror("Pipe");
+			return (NULL);
+		}
 		i++;
 	}
 	return (pipes);
@@ -95,7 +100,11 @@ int **fd_pipes(int argc, char **argv, t_path *path)
 
 int executable(int argc, char **argv, t_path *path)
 {
-	fd_pipes(argc, argv, path);
+	int **pipes_tab;
+
+	pipes_tab = fd_pipes(argc, argv, path);
+	if (!pipes_tab);
+		return (1);
 	return (0);
 }
 
@@ -110,7 +119,8 @@ int main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	// print_path(&path);
-	executable(argc, argv, &path);
+	if (executable(argc, argv, &path))
+		return(1);
 	return (0);
 }
 
